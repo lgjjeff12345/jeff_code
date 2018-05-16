@@ -1,0 +1,16 @@
+#/bin/bash
+
+case x$1 in
+x1)
+	echo TSLIB_TSDEVICE=/dev/touchscreen-1wire >  /etc/tslib_dev_type
+	echo TSLIB_CONFFILE=/usr/local/etc/fa.conf >> /etc/tslib_dev_type
+	;;
+x4)
+	echo TSLIB_TSDEVICE=/dev/input/event0      >  /etc/tslib_dev_type
+	echo TSLIB_CONFFILE=/usr/local/etc/ts.conf >> /etc/tslib_dev_type
+	;;
+*)
+	echo Usage: $0 '[1 | 2 | 3 | 4 ]'
+	echo 1 = 1-wire, 2 = 2-wires, 3 = serial, 4 = ADC
+	;;
+esac

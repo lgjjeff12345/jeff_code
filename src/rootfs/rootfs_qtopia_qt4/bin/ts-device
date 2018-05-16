@@ -1,0 +1,17 @@
+if [ ! -s /etc/tslib_dev_type ] ; then
+	if read lcd_type r < /proc/driver/one-wire-info ; then
+		true
+	else
+		lcd_type=0
+	fi 2>/dev/null
+	if [ $lcd_type -ne 0 ]; then
+		echo TSLIB_TSDEVICE=/dev/touchscreen-1wire
+		echo TSLIB_CONFFILE=/usr/local/etc/fa.conf
+	else
+		echo TSLIB_TSDEVICE=/dev/input/event0
+		echo TSLIB_CONFFILE=/usr/local/etc/ts.conf
+	fi > /etc/tslib_dev_type
+fi
+. /etc/tslib_dev_type
+export TSLIB_TSDEVICE
+export TSLIB_CONFFILE

@@ -1,0 +1,21 @@
+#!/bin/sh
+[ -e /var/run/ppp0.pid ] && exit 1
+rm /var/run/ppp0-ok 2>/dev/null
+>/var/run/ppp0.pid
+( pppd \
+    ${1:-/dev/ttySAC3} \
+    9600 \
+    nodetach \
+    lock \
+    user "cmnet" \
+    nocrtscts \
+    modem \
+    hide-password \
+    usepeerdns \
+    noipdefault \
+    noccp \
+    defaultroute \
+    ipcp-accept-local \
+    ipcp-accept-remote \
+    connect 'chat -s -v -f /etc/ppp/peers/gprs-connect' \
+    disconnect 'chat -s -v -f /etc/ppp/peers/gprs-disconnect'; rm /var/run/ppp0.pid)&

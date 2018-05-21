@@ -15,9 +15,22 @@ build_vboot()
    popd
 }
 
+build_uboot()
+{
+   pushd .
+
+   echo "Started to build uboot"
+   cd $current_dir/src/boot/u-boot
+   make mini2440_config
+   make
+   echo "Build uboot done"
+
+   popd
+}
 build_boot()
 {
     build_vboot
+    build_uboot
 }
 
 export PATH=$PATH:$current_dir/toolchain/opt/FriendlyARM/toolschain/4.4.3/bin

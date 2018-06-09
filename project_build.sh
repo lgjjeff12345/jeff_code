@@ -33,6 +33,18 @@ build_boot()
     build_uboot
 }
 
+build_linux()
+{
+    pushd .
+
+    echo "Started to build linux"
+    cd $current_dir/src/linux/linux-2.6.32.2
+    make zImage
+
+    popd
+
+}
+
 export PATH=$PATH:$current_dir/toolchain/opt/FriendlyARM/toolschain/4.4.3/bin
 export PATH=$PATH:$current_dir/toolchain/opt/FriendlyARM/toolschain/4.4.3/lib
 export LD_LIBRARY_PATH="$current_dir/toolchain/opt/FriendlyARM/toolschain/4.4.3/lib"
@@ -47,11 +59,13 @@ if [ $1 = boot ];then
     build_boot
 elif [ $1 = linux ];then
     echo "Build linux"
+    build_linux
 elif [ $1 = rootfs ];then
     echo "Build rootfs"
 elif [ $1 = full ];then
      echo "Build full"
      build_boot
+     build_linux
 else
     echo "Unsupport option $1"
 fi

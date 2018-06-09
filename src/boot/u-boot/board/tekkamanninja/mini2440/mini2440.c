@@ -166,7 +166,7 @@ int board_init (void)
 	icache_enable();
 	dcache_enable();
 #if	defined(CONFIG_MINI2440_LED)
-	gpio->GPBDAT = 0x00000181;
+	gpio->GPBDAT = 0x00000180;
 #endif
 	return 0;
 }
